@@ -1,0 +1,82 @@
+﻿@model DemoProject.Entities.tblGiaoVien
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Thông tin của giáo viên</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.tblMonHoc.TenMon)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.tblMonHoc.TenMon)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.HoTen)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.GT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.GT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </dt>
+    
+            <dd>
+                @string.Format("{0:dd/MM/yyyy}",Model.NgaySinh)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SDT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Luong)
+            </dt>
+    
+            <dd>
+                @string.Format("{0:0,000 VNĐ}", Model.Luong)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Sửa", "Edit", new { id = Model.MaGV }) |
+        @Html.ActionLink("Quay về", "Index")
+    </p>
+</body>
+</html>

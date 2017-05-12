@@ -1,0 +1,88 @@
+﻿@model DemoProject.Entities.tblHocSinh
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Bạn có chắc chắn xoá bỏ học sinh này?</h3>
+    <div>
+        <h4>Thông tin học sinh</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.tblLop.TenLop)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.tblLop.TenLop)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.HoTen)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.GT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.GT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NgaySinh)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DanToc)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DanToc)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TonGiao)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TonGiao)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Xoá" class="btn btn-default" /> |
+                @Html.ActionLink("Quay về", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

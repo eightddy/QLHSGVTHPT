@@ -1,0 +1,119 @@
+﻿@using DemoProject.DAO
+@using PagedList.Mvc
+@model PagedList.IPagedList<GiangDayDTO>
+@{
+    ViewBag.Title = "Giảng dạy";
+    var controller = @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+}
+<h2>Thời khoá biểu giảng dạy</h2>
+@if (Session["SUCCESS_MESSAGE"] != null)
+{
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="glyphicon glyphicon-remove"></i>
+        </button>
+        @Session["SUCCESS_MESSAGE"]
+    </div>
+
+    Session["SUCCESS_MESSAGE"] = null;
+}
+<p>
+    @Html.ActionLink("Tạo mới", "Create")
+</p>
+<form action="/@controller/Index" method="get" class="form-horizontal" role="form">
+    <div class="form-group form-inline">
+        <label>Tìm kiếm theo tên giáo viên:</label>
+        <input name="searchString" value="@ViewBag.CurrentFilter" type="text" class="form-control" id="search">
+        <button type="submit" class="btn btn-default" id="btnSearch">Tìm kiếm</button>
+        <label style="margin-left:1em;">Phân trang:</label>
+        <select name="itemsPerPage" id="itemsPerPage">
+            @{
+                var options = new int[] { 5, 10, 15 };
+                foreach (var item in options)
+                {
+                    if (item == ViewBag.itemsPerPage)
+                    {
+                        <option value="@item" selected>@item</option>
+                    }
+                    else
+                    {
+                        <option value="@item">@item</option>
+                    }
+
+                }
+            }
+        </select>
+    </div>
+</form>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                <a href="/@controller/Index?order=HoTenGV&sort=@ViewBag.ReverseSort&currentFilter=@ViewBag.CurrentFilter&page=@ViewBag.CurrentPage&itemsPerPage=@ViewBag.ItemsPerPage" style="color:white">
+                    Họ tên giáo viên
+                </a>
+            </th>
+            <th>
+                Tên lớp
+            </th>
+            <th>
+                Thứ
+            </th>
+            <th>
+                Tiết bắt đầu
+            </th>
+            <th>
+                Tiết kết thúc
+            </th>
+            <th>
+                Thao tác
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoTenGV)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenLop)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Thu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TietBD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TietKT)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id1=item.MaGV, id2=item.MaLop }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id1 = item.MaGV, id2 = item.MaLop }) |
+                    @Html.ActionLink("Xoá", "Delete", new { id1 = item.MaGV, id2 = item.MaLop })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+<br />
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount
+@Html.PagedListPager(
+    Model,
+    page => Url.Action(
+        "Index",
+        new
+        {
+            page,
+            itemsPerPage = ViewBag.ItemsPerPage,
+            currentFilter = ViewBag.CurrentFilter,
+            order = ViewBag.CurrentOrder,
+            sort = ViewBag.CurrentSort
+        }
+    )
+)
+
+

@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="row">
+
+    <ul class="bxslider">
+        <li>
+            <img src="~/Content/images/slider/slider_01.jpg" height="550" width="1200"/>
+        </li>
+        <li>
+            <img src="~/Content/images/slider/slider_011.jpg" height="550" width="1200" />
+        </li>
+        <li>
+            <img src="~/Content/images/slider/slider_02.jpg" height="550" width="1200" />
+        </li>
+        <li>
+            <img src="~/Content/images/slider/slider_03.jpg" height="550" width="1200" />
+        </li>
+        <li>
+            <img src="~/Content/images/slider/slider_04.jpg" height="550" width="1200" />
+        </li>
+        <li>
+            <img src="~/Content/images/slider/slider_05.jpg" height="550" width="1200" />
+        </li>
+        <li>
+            <img src="~/Content/images/slider/slider_06.jpg" height="550" width="1200" />
+        </li>
+
+    </ul>
+    <script type="text/javascript">
+        jQuery('.bxslider').bxSlider({
+            auto: true
+		});
+    </script>
+
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Quản lý học sinh</h2>
+        <p>
+            Học sinh trường THPT XYZ tích cực thi đua học tập rèn luyện 
+            xứng đáng là con ngoan trò giỏi, cháu ngoan Bác Hồ, chủ nhân tương lai của đất nước.
+        </p>
+        <p><a class="btn btn-default" href="/HocSinh/Index">Xem &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Quản lý giáo viên</h2>
+        <p>
+            Đội ngũ giáo viên XYZ không chỉ được học sinh yêu mến, phụ huynh tin tưởng và              giới chuyên môn công nhận bởi tài năng mà còn bởi những cống hiến 
+            và tâm huyết đáng trân trọng cho sự nghiệp giáo dục.
+        </p>
+        <p><a class="btn btn-default" href="/GiaoVien/Index">Xem &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Giảng dạy</h2>
+        <p>
+            Kế hoạch giảng dạy của nhà trường, Thời khoá biếu chi tiết các môn đang được
+            giảng dạy trong trường THPT XYZ.
+        </p>
+        <p><a class="btn btn-default" href="/GiangDay/Index">Learn more &raquo;</a></p>
+    </div>
+</div>

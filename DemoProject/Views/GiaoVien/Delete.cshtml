@@ -1,0 +1,97 @@
+﻿@model DemoProject.Entities.tblGiaoVien
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Xoá giáo viên";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+@if (ViewBag.error != null)
+{
+    <script>
+            alert("Bạn Không thể xoá giáo viên này");
+    </script>
+}
+    <h3>Bạn có chắc chắn xoá  giáo viên này không ?</h3>
+    <div>
+        <h4>Thông tin giáo viên:</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.tblMonHoc.TenMon)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.tblMonHoc.TenMon)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.HoTen)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.GT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.GT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </dt>
+    
+            <dd>
+                @string.Format("{0:dd/MM/yyyy}",Model.NgaySinh)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SDT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Luong)
+            </dt>
+    
+            <dd>
+                @string.Format("{0:0,000 VNĐ}",Model.Luong)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Xoá" class="btn btn-default" /> |
+                @Html.ActionLink("Quay về", "Index")
+            </div>
+        }
+    </div>
+</body>
+
+</html>

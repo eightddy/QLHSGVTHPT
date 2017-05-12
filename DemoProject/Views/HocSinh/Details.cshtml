@@ -1,0 +1,82 @@
+﻿@model DemoProject.Entities.tblHocSinh
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Chi tiết học sinh</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.tblLop.TenLop)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.tblLop.TenLop)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.HoTen)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.GT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.GT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NgaySinh)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DanToc)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DanToc)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TonGiao)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TonGiao)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Sửa", "Edit", new { id = Model.MaHS }) |
+        @Html.ActionLink("Quay về", "Index")
+    </p>
+</body>
+</html>
