@@ -12,6 +12,12 @@ namespace DemoProject
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "GiangDay",                                              // Route name
@@ -19,11 +25,7 @@ namespace DemoProject
                 defaults: new { controller = "GiangDay", action = "Edit", id1 = UrlParameter.Optional, id2 = UrlParameter.Optional }  // Parameter defaults
             );
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            
             
         }
     }

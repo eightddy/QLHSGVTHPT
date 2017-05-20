@@ -1,4 +1,4 @@
-﻿@model DemoProject.DAO.GiangDayDTO
+﻿@model DemoProject.Entities.tblGiangDay
 
 @{
     ViewBag.Title = "Edit";
@@ -6,7 +6,23 @@
 }
 
 <h2>Edit</h2>
+<script>
+    $(document).ready(function () {
+        $("#TietKT").focusout(function () {
+            if (parseInt($(this).val()) < parseInt($("#TietBD").val())) {
+                $("#errormess").html('Tiết kết thúc phải lớn hơn tiết bắt đầu');
+            }
+            else { $("#errormess").html(''); }
+        });
 
+        $("#TietBD").focusout(function () {
+            if (parseInt($(this).val()) > parseInt($("#TietKT").val())) {
+                $("#errormess").html('Tiết kết thúc không thể nhỏ hơn tiết bắt đầu');
+            }
+            else { $("#errormess").html(''); }
+        });
+    });
+</script>
 
 @using (Html.BeginForm())
 {
@@ -23,9 +39,29 @@
         @Html.HiddenFor(model => model.Thu)
 
         <div class="form-group">
+            @Html.LabelFor(model => model.tblGiaoVien.HoTen, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control" type="text" value="@Model.tblGiaoVien.HoTen" disabled/>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.tblLop.TenLop, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control" type="text" value="@Model.tblLop.TenLop" disabled />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Thu, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control" type="text" value="@Model.Thu" disabled />
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.TietBD, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TietBD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TietBD, new { htmlAttributes = new { @class = "form-control", @name = "TietBD" } })
                 @Html.ValidationMessageFor(model => model.TietBD, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,10 +69,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TietKT, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TietKT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TietKT, new { htmlAttributes = new { @class = "form-control", @name="TietKT" } })
                 @Html.ValidationMessageFor(model => model.TietKT, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div id="errormess"></div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

@@ -54,9 +54,9 @@ namespace DemoProject.Entities
                 .Property(e => e.Password)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<tblUser>()
-                .Property(e => e.MaGV)
-                .IsUnicode(false);
+            //modelBuilder.Entity<tblUser>()
+            //    .Property(e => e.MaGV)
+            //    .IsUnicode(false);
         }
     }
 }

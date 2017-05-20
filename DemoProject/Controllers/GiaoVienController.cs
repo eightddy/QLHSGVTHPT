@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PagedList;
 using System.Text;
 using DemoProject.DAO;
+// Lương giáo viên nên giới hạn nhập
 
 namespace DemoProject.Controllers
 {

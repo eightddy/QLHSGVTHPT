@@ -17,8 +17,7 @@ namespace DemoProject.Entities
         [StringLength(20)]
         public string Password { get; set; }
 
-        [StringLength(10)]
-        public string MaGV { get; set; }
+        public int MaGV { get; set; }
 
         public int MaQuyen { get; set; }
 

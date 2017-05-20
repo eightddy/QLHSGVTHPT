@@ -106,35 +106,25 @@ namespace DemoProject.Controllers
         }
 
         // GET: GiangDay/Edit/5
-        public ActionResult Edit(int id1, int id2)
+        public ActionResult Edit(int? id1, int? id2)
         {
-            GiangDayDAO dao = new GiangDayDAO();
-            //GiangDayDTO tblGiangDay = dao.TimKiemTheo2Ma(id1, id2);
+            if (id1 == null || id2 == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var tblGiangDay = db.tblGiangDays.Where(item => item.MaGV == id1).Where(item => item.MaLop == id2).ToList();
 
-            var tblGiangDay = (from gd in db.tblGiangDays
-                       join gv in db.tblGiaoViens on gd.MaGV equals gv.MaGV
-                       join l in db.tblLops on gd.MaLop equals l.MaLop
-                       where gd.MaGV == id1 & gd.MaLop == id2
-                       select new GiangDayDTO()
-                       {
-                           MaGV = gv.MaGV,
-                           HoTenGV = gv.HoTen,
-                           MaLop = l.MaLop,
-                           TenLop = l.TenLop,
-                           Thu = gd.Thu,
-                           TietBD = (int)gd.TietBD,
-                           TietKT = (int)gd.TietKT
-                       }
-                ) ;
             if (tblGiangDay == null)
             {
                 return HttpNotFound();
             }
-            //ViewBag.MaGV = tblGiangDay.MaGV;
-            //ViewBag.MaLop = tblGiangDay.MaLop;
-            GiangDayDTO a = new GiangDayDTO();
-            a = tblGiangDay as GiangDayDTO;  
-            return View(a);
+            var giaovien = db.tblGiaoViens.Where(item => item.MaGV == id1);
+            var lop = db.tblLops.Where(item => item.MaLop == id2);
+
+            ViewBag.GV = giaovien;
+            ViewBag.Lop = lop;
+
+            return View(tblGiangDay.First());
         }
 
         // POST: GiangDay/Edit/5

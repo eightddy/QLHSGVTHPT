@@ -28,8 +28,8 @@ namespace DemoProject
             //);
 
 
-            Application["APP_CONTROLLER"] = "HocSinh";
-            Application["APP_NAME"] = "Quản Lý THPT";
+            Application["APP_CONTROLLER"] = "Home";
+            Application["APP_NAME"] = "Quản lý THPT";
             Application["STUDENT_NAME"] = "Phan Huy Dũng";
             Application["STUDENT_CLASS"] = "TH13B";
             Application["STUDENT_ROLL_NUMBER"] = "14150235";
