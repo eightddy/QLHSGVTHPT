@@ -9,11 +9,12 @@ using System.Web.Mvc;
 using DemoProject.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DemoProject.DAO;
+using DemoProject.Sessions;
 
 using PagedList;
 namespace DemoProject.Controllers
 {
-    public class GiangDayController : Controller
+    public class GiangDayController : BaseController
     {
         private MyDbContext db = new MyDbContext();
 
@@ -23,7 +24,7 @@ namespace DemoProject.Controllers
         //    var tblGiangDays = db.tblGiangDays.Include(t => t.tblGiaoVien).Include(t => t.tblLop);
         //    return View(tblGiangDays.ToList());
         //}
-
+        [PhanQuyen(MaQuyen = "1,2,3,4")]
         public ActionResult Index(int? page, int? itemsPerPage, string searchString, string currentFilter, string order, string sort)
         {
             GiangDayDAO dao = new GiangDayDAO();
@@ -67,18 +68,19 @@ namespace DemoProject.Controllers
         }
 
         // GET: GiangDay/Details/5
-        public ActionResult Details(int id1, int id2)
-        {
-            GiangDayDAO dao = new GiangDayDAO();
-            var tblGiangDay = dao.TimKiemTheo2Ma(id1,id2);
-            if (tblGiangDay == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tblGiangDay);
-        }
+        //public ActionResult Details(int id1, int id2)
+        //{
+        //    GiangDayDAO dao = new GiangDayDAO();
+        //    var tblGiangDay = dao.TimKiemTheo2Ma(id1,id2);
+        //    if (tblGiangDay == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(tblGiangDay);
+        //}
 
         // GET: GiangDay/Create
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Create()
         {
             ViewBag.MaGV = new SelectList(db.tblGiaoViens, "MaGV", "HoTen");
@@ -91,8 +93,20 @@ namespace DemoProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Create([Bind(Include = "MaGV,MaLop,Thu,TietBD,TietKT")] tblGiangDay tblGiangDay)
         {
+            if (tblGiangDay.TietBD >= tblGiangDay.TietKT)
+            {
+                ModelState.AddModelError("", "Tiết bắt đầu không được lớn hơn tiết kết thúc");
+            }
+            if (tblGiangDay.TietBD < 6)
+            {
+                if (tblGiangDay.TietKT > 6)
+                {
+                    ModelState.AddModelError("", "Số tiết không hợp lý! (1->6) hoặc (7->12)");
+                }
+            }
             if (ModelState.IsValid)
             {
                 db.tblGiangDays.Add(tblGiangDay);
@@ -106,6 +120,7 @@ namespace DemoProject.Controllers
         }
 
         // GET: GiangDay/Edit/5
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Edit(int? id1, int? id2)
         {
             if (id1 == null || id2 == null)
@@ -132,20 +147,34 @@ namespace DemoProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Edit([Bind(Include = "MaGV,MaLop,Thu,TietBD,TietKT")] tblGiangDay tblGiangDay)
         {
+            if(tblGiangDay.TietBD >= tblGiangDay.TietKT)
+            {
+                ModelState.AddModelError("","Tiết bắt đầu không được lớn hơn tiết kết thúc");
+            }
+            if(tblGiangDay.TietBD < 6)
+            {
+                if (tblGiangDay.TietKT > 6)
+                {
+                    ModelState.AddModelError("","Số tiết không hợp lý! (1->6) hoặc (7->12)");
+                }
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(tblGiangDay).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaGV = new SelectList(db.tblGiaoViens, "MaGV", "HoTen", tblGiangDay.MaGV);
-            ViewBag.MaLop = new SelectList(db.tblLops, "MaLop", "TenLop", tblGiangDay.MaLop);
-            return View(tblGiangDay);
+            ViewBag.MaGV = new SelectList(db.tblGiaoViens, "MaGV", "HoTen", tblGiangDay.tblGiaoVien);
+            ViewBag.MaLop = new SelectList(db.tblLops, "MaLop", "TenLop", tblGiangDay.tblLop);
+            var tblGiangDay1 = db.tblGiangDays.Where(item => item.MaGV == tblGiangDay.MaGV).Where(item => item.MaLop == tblGiangDay.MaGV).SingleOrDefault();
+            return View(tblGiangDay1);
         }
 
         // GET: GiangDay/Delete/5
+        [PhanQuyen(MaQuyen = "1")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -163,6 +192,7 @@ namespace DemoProject.Controllers
         // POST: GiangDay/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [PhanQuyen(MaQuyen = "1")]
         public ActionResult DeleteConfirmed(int id)
         {
             tblGiangDay tblGiangDay = db.tblGiangDays.Find(id);

@@ -15,11 +15,13 @@ namespace DemoProject.Entities
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DisplayName("Tên giáo viên")]
         public int MaGV { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DisplayName("Bộ môn")]
         public int MaLop { get; set; }
 
         [Key]

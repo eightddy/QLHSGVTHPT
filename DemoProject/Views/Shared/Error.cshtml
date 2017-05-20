@@ -1,9 +1,15 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
-
-@{
-    ViewBag.Title = "Error";
+﻿@{
+    ViewBag.Title = "Lỗi truy cập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string controller = @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<script>
+    alert("Bạn không có quyền truy cập !!!");
+</script>
+<div class="alert alert-danger">
+    Bạn không có quyền truy cập.
+</div>
 
+@Html.ActionLink("Thử đăng nhập lại","Index","Login") | 
+@Html.ActionLink("Quay về","Index", controller)

@@ -1,6 +1,6 @@
 ﻿using DemoProject.DAO;
 using DemoProject.Models;
-using DemoProject.Session;
+using DemoProject.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,25 +21,35 @@ namespace DemoProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(LoginModel model)
         {
-            var dao = new UserDAO();
-            var res = dao.Login(model.username, model.password);
-
-            if (res == true && ModelState.IsValid)
+            if (model.username == null)
             {
-                var userSession = new UserSession();
-                var user = dao.getUserByUsername(model.username);
-                userSession.username = user.Username;
-                userSession.MaGV = user.MaGV;
-                userSession.MaQuyen = user.MaQuyen;
-
-                Session.Add(CommonConstant.USER_SESSION, userSession);
-                return RedirectToAction("index","home");
+                ModelState.AddModelError("", "Bạn hãy nhập tên đăng nhập!");
+            }
+            else if (model.password == null)
+            {
+                ModelState.AddModelError("", "Bạn hãy nhập tên mật khẩu!");
             }
             else
             {
-                ModelState.AddModelError("","Tên đăng nhập hoặc mật khẩu không chính xác!");
+                var dao = new UserDAO();
+                var res = dao.Login(model.username, model.password);
+
+                if (res == true && ModelState.IsValid)
+                {
+                    var userSession = new UserSession();
+                    var user = dao.getUserByUsername(model.username);
+                    userSession.username = user.Username;
+                    userSession.MaGV = user.MaGV;
+                    userSession.MaQuyen = user.MaQuyen;
+
+                    Session.Add(CommonConstant.USER_SESSION, userSession);
+                    return RedirectToAction("index", "home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không chính xác!");
+                }
             }
-            
             return View(model);
         }
     }

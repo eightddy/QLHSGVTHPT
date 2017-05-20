@@ -1,7 +1,8 @@
-namespace DemoProject.Entities
+﻿namespace DemoProject.Entities
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -11,10 +12,12 @@ namespace DemoProject.Entities
     {
         [Key]
         [StringLength(50)]
+        [DisplayName("Tên đăng nhập")]
         public string Username { get; set; }
 
         [Required]
         [StringLength(20)]
+        [DisplayName("Mật khẩu")]
         public string Password { get; set; }
 
         public int MaGV { get; set; }

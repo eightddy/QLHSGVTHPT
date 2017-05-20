@@ -41,9 +41,28 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Học sinh", "index", "hocsinh")</li>
                     <li>@Html.ActionLink("Giáo viên", "index", "giaovien")</li>
-                    <li>@Html.ActionLink("Giảng dạy", "index", "giangday")</li>
+                    <li>@Html.ActionLink("Giảng dạy", "index", "giangday")</li>  
                 </ul>
-                @*@Html.Partial("_LoginPartial")*@
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["USER_SESSION"] != null)
+                    {
+                        var usersession = Session["USER_SESSION"] as DemoProject.Sessions.UserSession;
+                        <li class="dropdown profile"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Xin chào @usersession.username!</a>
+                            <ul class="dropdown-menu">
+                                @if (usersession.MaQuyen == 1)
+                                {
+                                    <li>@Html.ActionLink("Tạo tài khoản", "Create", "Home")</li>
+                                }
+                                    
+                                <li>@Html.ActionLink("Sửa mật khẩu", "EditPass", "Home")</li>
+                                <li>@Html.ActionLink("Đăng xuất", "Logout", "Home")</li>
+                            </ul>        
+
+                        </li>
+
+                        
+                    }
+                </ul>
             </div>
         </div>
     </div>

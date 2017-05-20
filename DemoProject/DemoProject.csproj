@@ -200,6 +200,7 @@
     <Compile Include="DAO\GiangDayDTO.cs" />
     <Compile Include="DAO\GiaoVienDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
+    <Compile Include="DAO\UserDTO.cs" />
     <Compile Include="Entities\MyDbContext.cs" />
     <Compile Include="Entities\tblGiangDay.cs" />
     <Compile Include="Entities\tblGiaoVien.cs" />
@@ -215,12 +216,14 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserChangePass.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Session\CommonConstant.cs" />
-    <Compile Include="Session\UserSession.cs" />
+    <Compile Include="Sessions\CommonConstant.cs" />
+    <Compile Include="Sessions\PhanQuyenAttribute.cs" />
+    <Compile Include="Sessions\UserSession.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +315,7 @@
     <Content Include="Content\Custom-Style-Black.css" />
     <Content Include="Content\Custom-Style-BlueSky.css" />
     <Content Include="Content\Custom-Style-Turquoise.css" />
+    <Content Include="Content\images\07.jpg" />
     <Content Include="Content\images\banners\color-blue.jpg" />
     <Content Include="Content\images\banners\color-purple.jpg" />
     <Content Include="Content\images\banners\color-red.jpg" />
@@ -333,6 +337,8 @@
     <Content Include="Content\images\favicons\favicon-movie-youtube.ico" />
     <Content Include="Content\images\favicons\favicon-shopping-cart.ico" />
     <Content Include="Content\images\favicons\favicon-student.ico" />
+    <Content Include="Content\images\school.png" />
+    <Content Include="Content\images\SchoolBackgroundWallpaper.jpg" />
     <Content Include="Content\images\slider\slider_01.jpg" />
     <Content Include="Content\images\slider\slider_011.jpg" />
     <Content Include="Content\images\slider\slider_02.jpg" />
@@ -486,8 +492,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\EditPass.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -528,7 +534,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

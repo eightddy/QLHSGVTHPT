@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DemoProject.Session
+namespace DemoProject.Sessions
 {
     [Serializable]
     public class UserSession

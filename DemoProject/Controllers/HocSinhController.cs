@@ -10,9 +10,11 @@ using DemoProject.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PagedList;
+using DemoProject.Sessions;
+
 namespace DemoProject.Controllers
 {
-    public class HocSinhController : Controller
+    public class HocSinhController : BaseController
     {
         private MyDbContext db = new MyDbContext();
         public ActionResult Index(int? page, int? itemsPerPage, string searchString, string currentFilter, string order, string sort)
@@ -73,7 +75,7 @@ namespace DemoProject.Controllers
             }
             return View(tblHocSinh);
         }
-
+        [PhanQuyen(MaQuyen ="1,2")]
         // GET: HocSinh/Create
         public ActionResult Create()
         {
@@ -86,6 +88,7 @@ namespace DemoProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Create([Bind(Include = "MaHS,HoTen,GT,NgaySinh,DiaChi,DanToc,TonGiao,MaLop")] tblHocSinh tblHocSinh)
         {
             if (ModelState.IsValid)
@@ -102,6 +105,7 @@ namespace DemoProject.Controllers
         }
 
         // GET: HocSinh/Edit/5
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -122,6 +126,7 @@ namespace DemoProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Edit([Bind(Include = "MaHS,HoTen,GT,NgaySinh,DiaChi,DanToc,TonGiao,MaLop")] tblHocSinh tblHocSinh)
         {
             if (ModelState.IsValid)
@@ -137,6 +142,7 @@ namespace DemoProject.Controllers
         }
 
         // GET: HocSinh/Delete/5
+        [PhanQuyen(MaQuyen = "1")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -154,6 +160,7 @@ namespace DemoProject.Controllers
         // POST: HocSinh/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [PhanQuyen(MaQuyen = "1")]
         public ActionResult DeleteConfirmed(int id)
         {
             tblHocSinh tblHocSinh = db.tblHocSinhs.Find(id);

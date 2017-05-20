@@ -7,7 +7,6 @@
 
 <h2>Create</h2>
 
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -43,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TietBD, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TietBD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TietBD, new { htmlAttributes = new { @class = "form-control", @name = "TietBD" } })
                 @Html.ValidationMessageFor(model => model.TietBD, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +50,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TietKT, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TietKT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TietKT, new { htmlAttributes = new { @class = "form-control", @name = "TietKT" } })
                 @Html.ValidationMessageFor(model => model.TietKT, "", new { @class = "text-danger" })
             </div>
         </div>

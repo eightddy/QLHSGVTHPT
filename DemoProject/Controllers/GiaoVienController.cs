@@ -12,14 +12,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PagedList;
 using System.Text;
 using DemoProject.DAO;
+using DemoProject.Sessions;
 // Lương giáo viên nên giới hạn nhập
 
 namespace DemoProject.Controllers
 {
-    public class GiaoVienController : Controller
+    public class GiaoVienController : BaseController
     {
         private MyDbContext db = new MyDbContext();
-       
+        [PhanQuyen(MaQuyen = "1,2,3")]
         public ActionResult Index(int? page, int? itemsPerPage, string searchString, string currentFilter, string order, string sort)
         {
             var gv = db.tblGiaoViens.Include(g => g.tblMonHoc);
@@ -68,6 +69,7 @@ namespace DemoProject.Controllers
         }
 
         // GET: GiaoVien/Details/5
+        [PhanQuyen(MaQuyen = "1,2,3")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -83,6 +85,7 @@ namespace DemoProject.Controllers
         }
 
         // GET: GiaoVien/Create
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Create()
         {
             ViewBag.MaMon = new SelectList(db.tblMonHocs, "MaMon", "TenMon");
@@ -94,6 +97,7 @@ namespace DemoProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Create([Bind(Include = "MaGV,HoTen,GT,NgaySinh,SDT,DiaChi,Luong,MaMon")] tblGiaoVien tblGiaoVien)
         {
             if (ModelState.IsValid)
@@ -110,6 +114,7 @@ namespace DemoProject.Controllers
         }
 
         // GET: GiaoVien/Edit/5
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -130,6 +135,7 @@ namespace DemoProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Edit([Bind(Include = "MaGV,HoTen,GT,NgaySinh,SDT,DiaChi,Luong,MaMon")] tblGiaoVien tblGiaoVien)
         {
             if (ModelState.IsValid)
@@ -145,6 +151,7 @@ namespace DemoProject.Controllers
         }
 
         // GET: GiaoVien/Delete/5
+        [PhanQuyen(MaQuyen = "1")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -162,6 +169,7 @@ namespace DemoProject.Controllers
         // POST: GiaoVien/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [PhanQuyen(MaQuyen = "1")]
         public ActionResult DeleteConfirmed(int id)
         {
             tblGiaoVien tblGiaoVien = db.tblGiaoViens.Find(id);

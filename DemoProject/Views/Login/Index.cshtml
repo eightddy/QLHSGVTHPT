@@ -6,6 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!--
+        https://wallpapersafari.com/school-background-pictures/
+        http://www.flaticon.com/search?word=education
+    -->
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Fonts -->
@@ -23,21 +27,28 @@
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="~/Content/Login/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Login/css/themes/flat-blue.css">
+
+    <script>
+        function QuenMatKhau() {
+            alert("Vui lòng liên hệ về email: phanhuydung@gmail.com để lấy lại mật khẩu");
+        }
+    </script>
 </head>
-<body class="flat-blue login-page" style="background-color:gray;">
+<body class="flat-blue login-page" style="background-image:url(../../Content/images/SchoolBackgroundWallpaper.jpg)">
     <div class="container">
         <div class="login-box">
             <div>
                 <div class="login-form row">
                     <div class="col-sm-12 text-center login-header">
-                        <i class="login-logo fa fa-connectdevelop fa-5x"></i>
-                        <h4 class="login-title">Admin Page</h4>
+                        @*<i class="login-logo fa fa-connectdevelop fa-5x"></i>*@
+                        <img src="~/Content/images/school.png" height="150"/>
+                        <h4 class="login-title" style="color:brown"><b style="font-family:Tahoma">TRANG QUẢN LÝ HỌC SINH VÀ GIÁO VIÊN TRƯỜNG THPT</b></h4>
                     </div>
                     <div class="col-sm-12">
-                        <div class="login-body">
+                        <div class="login-body" style="background-color:seagreen">
                             <div class="progress hidden" id="login-progress">
                                 <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                    Log In...
+                                    Đang đăng nhập ...
                                 </div>
                             </div>
                             @using (Html.BeginForm())
@@ -45,11 +56,11 @@
                                 @Html.AntiForgeryToken()
                                 @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
                                 <div class="control">
-                                    @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @name = "userName", @placeholder = "admin@gmail.com" } })
+                                    @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @name = "userName", @placeholder = "Nhập tên đăng nhập" } })
                                     @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="control">
-                                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @name = "passWord", @type = "password" } })
+                                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @name = "passWord", @type = "password", @placeholder = "Nhập tên mật khẩu" } })
                                     @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="login-button text-center">
@@ -59,7 +70,7 @@
                             }
                         </div>
                         <div class="login-footer">
-                            <span class="text-right"><a href="#" class="color-white">Forgot password?</a></span>
+                            <span class="text-right"><a href="#" style="color:blue" onclick="QuenMatKhau()">Quên mật khẩu?</a></span>
                         </div>
                     </div>
                 </div>
