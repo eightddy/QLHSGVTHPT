@@ -89,8 +89,8 @@
                     @Html.DisplayFor(modelItem => item.TietKT)
                 </td>
                 <td>
-                    @Html.ActionLink("Sửa", "Edit", new { id1=item.MaGV, id2=item.MaLop }) |
-                    @Html.ActionLink("Xoá", "Delete", new { id1 = item.MaGV, id2 = item.MaLop })
+                    @Html.ActionLink("Sửa", "Edit", new { id1=item.MaGV, id2=item.MaLop, id3 = item.Thu }) |
+                    @Html.ActionLink("Xoá", "Delete", new { id1 = item.MaGV, id2 = item.MaLop, id3 = item.Thu })
                 </td>
             </tr>
         }
@@ -98,6 +98,8 @@
     </table>
 
 </div>
+<br />
+Có @ViewBag.TotalRecord bản ghi được tìm thấy
 <br />
 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount
 @Html.PagedListPager(

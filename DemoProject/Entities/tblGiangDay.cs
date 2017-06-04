@@ -31,11 +31,13 @@ namespace DemoProject.Entities
         public string Thu { get; set; }
 
         [Required]
+        [DisplayName("Tiết bắt đầu")]
         [Range(1, 12, ErrorMessage = "{0} must be a number between {1} and {2}.")]
         
         public int? TietBD { get; set; }
 
         [Required]
+        [DisplayName("Tiết kết thúc")]
         [Range(1, 12, ErrorMessage = "{0} must be a number between {1} and {2}.")]
         public int? TietKT { get; set; }
 

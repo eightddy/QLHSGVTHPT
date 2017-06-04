@@ -5,41 +5,47 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>XOÁ LỊCH GIẢNG DẠY</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bạn có thực sự muốn xoá bản ghi này hay không?</h3>
 <div>
-    <h4>tblGiangDay</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.tblGiaoVien.HoTen)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.tblGiaoVien.HoTen)
         </dd>
+        <br />
 
         <dt>
             @Html.DisplayNameFor(model => model.tblLop.TenLop)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.tblLop.TenLop)
         </dd>
+        <br />
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Thu)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Thu)
+        </dd>
+        <br />
 
         <dt>
             @Html.DisplayNameFor(model => model.TietBD)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.TietBD)
         </dd>
-
+        <br />
+        
         <dt>
             @Html.DisplayNameFor(model => model.TietKT)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.TietKT)
         </dd>
@@ -50,8 +56,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Xoá" class="btn btn-default" /> |
+            @Html.ActionLink("Quay lại", "Index")
         </div>
     }
 </div>

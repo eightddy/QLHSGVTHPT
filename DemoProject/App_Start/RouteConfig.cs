@@ -21,12 +21,16 @@ namespace DemoProject
 
             routes.MapRoute(
                 name: "GiangDay",                                              // Route name
-                url: "{controller}/{action}/{id1}/{id2}",                           // URL with parameters
-                defaults: new { controller = "GiangDay", action = "Edit", id1 = UrlParameter.Optional, id2 = UrlParameter.Optional }  // Parameter defaults
+                url: "{controller}/{action}/{id1}/{id2}/{id3}",                           // URL with parameters
+                defaults: new { controller = "GiangDay", action = "Edit", id1 = UrlParameter.Optional, id2 = UrlParameter.Optional, id3 = UrlParameter.Optional }  // Parameter defaults
             );
 
-            
-            
+            routes.MapRoute(
+                name: "GiangDay_Delete",                                              // Route name
+                url: "{controller}/{action}/{id1}/{id2}/{id3}",                           // URL with parameters
+                defaults: new { controller = "Delete", action = "Edit", id1 = UrlParameter.Optional, id2 = UrlParameter.Optional, id3 = UrlParameter.Optional }  // Parameter defaults
+            );
+
         }
     }
 }

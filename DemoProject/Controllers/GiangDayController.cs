@@ -64,6 +64,8 @@ namespace DemoProject.Controllers
             int pageNumber = (page == null) ? 1 : (int)page;
             ViewBag.ItemsPerPage = pageSize;
             ViewBag.CurrentPage = pageNumber;
+
+            ViewBag.TotalRecord = gd.Count();
             return View(gd.ToPagedList(pageNumber, pageSize));
         }
 
@@ -85,6 +87,7 @@ namespace DemoProject.Controllers
         {
             ViewBag.MaGV = new SelectList(db.tblGiaoViens, "MaGV", "HoTen");
             ViewBag.MaLop = new SelectList(db.tblLops, "MaLop", "TenLop");
+            
             return View();
         }
 
@@ -96,6 +99,23 @@ namespace DemoProject.Controllers
         [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Create([Bind(Include = "MaGV,MaLop,Thu,TietBD,TietKT")] tblGiangDay tblGiangDay)
         {
+            /* Cần phải xác minh được 
+             * tiết học có bị trùng 
+             * hay không ????
+            */
+            var dao = new GiangDayDAO();
+            int check = dao.isCreate(tblGiangDay);
+
+            if (check != 0)
+            {
+                if(check == 1)
+                    ModelState.AddModelError("", "Đã có giáo viên khác dạy vào thời gian này");
+                if (check == 2)
+                    ModelState.AddModelError("", "Giáo viên này đã dạy một lớp khác trong khoảng thời gian này");
+                if (check == 3)
+                    ModelState.AddModelError("", "Một giáo viên trong 1 ngày không được dạy 1 lớp 2 lần");
+            }
+
             if (tblGiangDay.TietBD >= tblGiangDay.TietKT)
             {
                 ModelState.AddModelError("", "Tiết bắt đầu không được lớn hơn tiết kết thúc");
@@ -121,13 +141,13 @@ namespace DemoProject.Controllers
 
         // GET: GiangDay/Edit/5
         [PhanQuyen(MaQuyen = "1,2")]
-        public ActionResult Edit(int? id1, int? id2)
+        public ActionResult Edit(int? id1, int? id2, string id3)
         {
-            if (id1 == null || id2 == null)
+            if (id1 == null || id2 == null || id3=="")
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var tblGiangDay = db.tblGiangDays.Where(item => item.MaGV == id1).Where(item => item.MaLop == id2).ToList();
+            var tblGiangDay = db.tblGiangDays.Where(item => item.MaGV == id1).Where(item => item.MaLop == id2).Where(item => item.Thu.Equals(id3)).SingleOrDefault();
 
             if (tblGiangDay == null)
             {
@@ -139,7 +159,7 @@ namespace DemoProject.Controllers
             ViewBag.GV = giaovien;
             ViewBag.Lop = lop;
 
-            return View(tblGiangDay.First());
+            return View(tblGiangDay);
         }
 
         // POST: GiangDay/Edit/5
@@ -150,7 +170,20 @@ namespace DemoProject.Controllers
         [PhanQuyen(MaQuyen = "1,2")]
         public ActionResult Edit([Bind(Include = "MaGV,MaLop,Thu,TietBD,TietKT")] tblGiangDay tblGiangDay)
         {
-            if(tblGiangDay.TietBD >= tblGiangDay.TietKT)
+            var dao = new GiangDayDAO();
+            int check = dao.isCreate(tblGiangDay);
+
+            if (check != 0)
+            {
+                if (check == 1)
+                    ModelState.AddModelError("", "Đã có giáo viên khác dạy vào thời gian này");
+                if (check == 2)
+                    ModelState.AddModelError("", "Giáo viên này đã dạy một lớp khác trong khoảng thời gian này");
+                if (check == 1)
+                    ModelState.AddModelError("", "Một giáo viên trong 1 ngày không được dạy 1 lớp 2 lần");
+            }
+
+            if (tblGiangDay.TietBD >= tblGiangDay.TietKT)
             {
                 ModelState.AddModelError("","Tiết bắt đầu không được lớn hơn tiết kết thúc");
             }
@@ -161,6 +194,7 @@ namespace DemoProject.Controllers
                     ModelState.AddModelError("","Số tiết không hợp lý! (1->6) hoặc (7->12)");
                 }
             }
+
             if (ModelState.IsValid)
             {
                 db.Entry(tblGiangDay).State = EntityState.Modified;
@@ -169,23 +203,25 @@ namespace DemoProject.Controllers
             }
             ViewBag.MaGV = new SelectList(db.tblGiaoViens, "MaGV", "HoTen", tblGiangDay.tblGiaoVien);
             ViewBag.MaLop = new SelectList(db.tblLops, "MaLop", "TenLop", tblGiangDay.tblLop);
-            var tblGiangDay1 = db.tblGiangDays.Where(item => item.MaGV == tblGiangDay.MaGV).Where(item => item.MaLop == tblGiangDay.MaGV).SingleOrDefault();
+            var tblGiangDay1 = db.tblGiangDays.Where(item => item.MaGV == tblGiangDay.MaGV).Where(item => item.MaLop == tblGiangDay.MaGV).Where(item => item.Thu.Equals(tblGiangDay.Thu)).SingleOrDefault();
             return View(tblGiangDay1);
         }
 
         // GET: GiangDay/Delete/5
         [PhanQuyen(MaQuyen = "1")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id1, int? id2, string id3)
         {
-            if (id == null)
+            if (id1 == null || id2 == null || id3 == "")
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tblGiangDay tblGiangDay = db.tblGiangDays.Find(id);
+            var tblGiangDay = db.tblGiangDays.Where(item => item.MaGV == id1).Where(item => item.MaLop == id2).Where(item => item.Thu.Equals(id3)).SingleOrDefault();
+
             if (tblGiangDay == null)
             {
                 return HttpNotFound();
             }
+
             return View(tblGiangDay);
         }
 
@@ -193,9 +229,19 @@ namespace DemoProject.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [PhanQuyen(MaQuyen = "1")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id1, int? id2, string id3)
         {
-            tblGiangDay tblGiangDay = db.tblGiangDays.Find(id);
+            if (id1 == null || id2 == null || id3 == "")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var tblGiangDay = db.tblGiangDays.Where(item => item.MaGV == id1).Where(item => item.MaLop == id2).Where(item => item.Thu.Equals(id3)).SingleOrDefault();
+
+            if (tblGiangDay == null)
+            {
+                return HttpNotFound();
+            }
+
             db.tblGiangDays.Remove(tblGiangDay);
             db.SaveChanges();
             return RedirectToAction("Index");
